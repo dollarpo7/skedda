@@ -37,7 +37,13 @@ stages:
         backendAzureRmContainerName: 'skedda'
         backendAzureRmKey: 'skedda.terraform.tfstate'
         allowTelemetryCollection: true
-    
+        
+    - task: TerraformCLI@0
+      inputs:
+        command: 'forceunlock'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+        allowTelemetryCollection: true
+        lockID: '0828c03f-82cd-aa31-69cc-0ed2a117f76d'
     - task: TerraformCLI@0
       inputs:
         command: 'plan'

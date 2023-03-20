@@ -11,7 +11,7 @@ variables:
   #container: tfstate
   #tfstateFile: terraform.tfstate
   anyTfChanges: false
-  tf_version: 1.4.2
+  #tf_version: 1.4.2
   
 stages:
 - stage: Terraform_init_plan
@@ -34,7 +34,6 @@ stages:
         backendAzureRmStorageAccountName: 'skedda101'
         backendAzureRmContainerName: 'skedda'
         backendAzureRmKey: 'skedda.terraform.tfstate'
-
     
     - task: TerraformTaskV4@4
       inputs:

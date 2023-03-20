@@ -40,12 +40,6 @@ stages:
         
     - task: TerraformCLI@0
       inputs:
-        command: 'forceunlock'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        allowTelemetryCollection: true
-        lockID: '0828c03f-82cd-aa31-69cc-0ed2a117f76d'
-    - task: TerraformCLI@0
-      inputs:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
         environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'

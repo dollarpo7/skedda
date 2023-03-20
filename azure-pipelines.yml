@@ -21,9 +21,9 @@ stages:
   - job: terraform_init_plan
     steps:
     - task: TerraformInstaller@0
-      displayName: Install TF $(tf_version)
       inputs:
-        terraformVersion: '$(tf_version)'
+        terraformVersion: '1.4.2'
+
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'

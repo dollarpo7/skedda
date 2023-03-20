@@ -5,13 +5,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  #subscription: Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)
+  subscription: Visual Studio Enterprise(b526a136-5b78-4fa3-9bd9-00c7bdadc807)
   #resourceGroup: resourcegroup-tfstate
   #storageAccount: tfstate1085
   #container: tfstate
   #tfstateFile: terraform.tfstate
   anyTfChanges: false
-  #tf_version: 1.4.2
+  tf_version: 1.4.2
+
   
 stages:
 - stage: Terraform_init_plan
@@ -20,28 +21,31 @@ stages:
   jobs:
   - job: terraform_init_plan
     steps:
-    - task: TerraformInstaller@1
+    - task: TerraformInstaller@0
       inputs:
-        terraformVersion: '1.4.2'
+        terraformVersion: '$(tf_versions)'
 
-    - task: TerraformTaskV4@4
+    - task: TerraformCLI@0
       inputs:
-        provider: 'azurerm'
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+        backendType: 'azurerm'
         backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        backendAzureRmSubscriptionId: '$(subscription)'
         backendAzureRmResourceGroupName: 'skedda'
         backendAzureRmStorageAccountName: 'skedda101'
         backendAzureRmContainerName: 'skedda'
         backendAzureRmKey: 'skedda.terraform.tfstate'
+        allowTelemetryCollection: true
     
-    - task: TerraformTaskV4@4
+    - task: TerraformCLI@0
       inputs:
-        provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+        environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        providerAzureRmSubscriptionId: '$(subscription)'
         commandOptions: '-out=tfplan'
-        environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        allowTelemetryCollection: true
 
     - task: PowerShell@2
       displayName: detect any terraform change
@@ -63,10 +67,11 @@ stages:
             Write-Host "There is no change detected in Terraform tfplan file"
           }
 
-    - task: TerraformTaskV4@4
+    - task: TerraformCLI@0
       inputs:
-        provider: 'azurerm'
         command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+        workingDirectory: '$(System.DefaultWorkingDirectory)terra'
+        environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        providerAzureRmSubscriptionId: '$(subscription)'
         commandOptions: 'tfplan'
-        environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        allowTelemetryCollection: true

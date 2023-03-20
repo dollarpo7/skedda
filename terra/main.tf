@@ -43,7 +43,7 @@ resource "azurerm_mssql_server" "sql" {
 }
 
 resource "azurerm_mssql_database" "db" {
-  name           = "ProductsDB"
+  name           = var.sql_database_name
   server_id      = azurerm_mssql_server.sql.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
@@ -52,7 +52,7 @@ resource "azurerm_mssql_database" "db" {
 }
 
 resource "azurerm_storage_account" "storage" {
-  name                     = "tfstorage013"
+  name                     = "tfstorage014"
   resource_group_name      = data.azurerm_resource_group.rg.name
   location                 = data.azurerm_resource_group.rg.location
   account_tier             = "Standard"

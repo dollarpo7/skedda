@@ -6,8 +6,8 @@ pool:
 
 variables:
   subscription: Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)
-  resourceGroup: resourcegroup-tfstate
-  storageAccount: terraformtfstateskip
+  #resourceGroup: resourcegroup-tfstate
+  storageAccount: tfstate1085
   container: tfstate
   tfstateFile: terraform.tfstate
   anyTfChanges: false
@@ -30,20 +30,20 @@ stages:
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
         backendType: 'azurerm'
-        backendServiceArm: 'skedda-connect'
-        backendAzureRmSubscriptionId: '14b07d2a-dd5a-4380-999b-eac9f6d6112f'
-        backendAzureRmResourceGroupName: 'ado'
-        backendAzureRmStorageAccountName: 'skeddastate1085'
+        backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        backendAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
+        backendAzureRmResourceGroupName: 'tfstate'
+        backendAzureRmStorageAccountName: 'tfstate1085'
         backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'skedda.terraform.tfstate'
+        backendAzureRmKey: 'skedddda.terraform.tfstate'
         allowTelemetryCollection: true
     
     - task: TerraformCLI@0
       inputs:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        environmentServiceName: 'skedda-connect'
-        providerAzureRmSubscriptionId: '14b07d2a-dd5a-4380-999b-eac9f6d6112f'
+        environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
         commandOptions: '-out tfplan'
         allowTelemetryCollection: true
         publishPlanResults: 'tfplan'

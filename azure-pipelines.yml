@@ -32,10 +32,10 @@ stages:
         backendType: 'azurerm'
         backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
         backendAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
-        backendAzureRmResourceGroupName: 'tfstate'
-        backendAzureRmStorageAccountName: 'tfstate1085'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'skedddda.terraform.tfstate'
+        backendAzureRmResourceGroupName: 'skedda'
+        backendAzureRmStorageAccountName: 'skedda101'
+        backendAzureRmContainerName: 'skedda'
+        backendAzureRmKey: 'skedda.terraform.tfstate'
         allowTelemetryCollection: true
     
     - task: TerraformCLI@0

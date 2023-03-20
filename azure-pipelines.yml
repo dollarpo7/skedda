@@ -42,6 +42,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
         commandOptions: '-out=tfplan'
         environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'

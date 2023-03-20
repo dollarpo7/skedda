@@ -1,4 +1,4 @@
-resource_group_name     = "sharptech"
+resource_group_name     = "ado"
 resource_group_location = "westeurope"
 app_service_plan_name   = "skedda-web-plan"
 app_service_name        = "skedda-web-023"

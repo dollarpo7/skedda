@@ -1,0 +1,8 @@
+resource_group_name     = "sharptech"
+resource_group_location = "westeurope"
+app_service_plan_name   = "skedda-web-plan"
+app_service_name        = "skedda-web-023"
+sql_server_name         = "skedda-sqlserver-023"
+sql_database_name       = "ProductsDB"
+sql_admin_login         = "user01"
+sql_admin_password      = "@Aa123456789!"

@@ -5,13 +5,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  subscription: Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)
-  resourceGroup: resourcegroup-tfstate
-  storageAccount: terraformtfstateskip
-  container: tfstate
-  tfstateFile: terraform.tfstate
+  #subscription: Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)
+  #resourceGroup: resourcegroup-tfstate
+  #storageAccount: tfstate1085
+  #container: tfstate
+  #tfstateFile: terraform.tfstate
   anyTfChanges: false
-  tf_version: 1.4.2
+  #tf_version: 1.4.2
   
 stages:
 - stage: Terraform_init_plan
@@ -20,59 +20,32 @@ stages:
   jobs:
   - job: terraform_init_plan
     steps:
-    - task: TerraformInstaller@0
-      displayName: Install TF $(tf_version)
+    - task: TerraformInstaller@1
       inputs:
-        terraformVersion: '$(tf_version)'
+        terraformVersion: '1.4.2'
 
-    - task: TerraformCLI@0
+    - task: TerraformTaskV4@4
       inputs:
+        provider: 'azurerm'
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        backendType: 'azurerm'
-        backendServiceArm: 'skedda-connect'
-        backendAzureRmSubscriptionId: '14b07d2a-dd5a-4380-999b-eac9f6d6112f'
-        backendAzureRmResourceGroupName: 'ado'
-        backendAzureRmStorageAccountName: 'skeddastate1085'
-        backendAzureRmContainerName: 'tfstate'
+        backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+        backendAzureRmResourceGroupName: 'skedda'
+        backendAzureRmStorageAccountName: 'skedda101'
+        backendAzureRmContainerName: 'skedda'
         backendAzureRmKey: 'skedda.terraform.tfstate'
-        allowTelemetryCollection: true
     
-    - task: TerraformCLI@0
+    - task: TerraformTaskV4@4
       inputs:
+        provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        environmentServiceName: 'skedda-connect'
-        providerAzureRmSubscriptionId: '14b07d2a-dd5a-4380-999b-eac9f6d6112f'
-        commandOptions: '-out tfplan'
-        allowTelemetryCollection: true
-        publishPlanResults: 'tfplan'
-
-    # - task: PowerShell@2
-    #   displayName: detect any terraform change
-    #   inputs:
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-    #     targetType: 'inline'
-    #     script: |
-    #       # Write-Host "LASTEXITCODE : $LASTEXITCODE"
-    #       $plan = $(terraform show -json tfplan | ConvertFrom-Json)
-    #       $actions = $plan.resource_changes.change.actions
-    #       Write-Host "Terraform actions : $actions"
-    #       if (($actions -contains 'create') -or ($actions -contains 'delete') -or ($actions -contains 'update'))
-    #       {
-    #         Write-Host "Terraform will perform the following actions : $actions"
-    #         Write-Host "##vso[task.setvariable variable=anyTfChanges;]true"
-    #       }
-    #       else
-    #       {
-    #         Write-Host "There is no change detected in Terraform tfplan file"
-    #       }
-
-    - task: TerraformCLI@0
+        commandOptions: '-out=tfplan'
+        environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+    - task: TerraformTaskV4@4
       inputs:
+        provider: 'azurerm'
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        environmentServiceName: 'skedda-connect'
-        providerAzureRmSubscriptionId: '14b07d2a-dd5a-4380-999b-eac9f6d6112f'
         commandOptions: 'tfplan'
-        allowTelemetryCollection: true
+        environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'

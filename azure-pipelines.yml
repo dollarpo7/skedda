@@ -20,7 +20,7 @@ stages:
   jobs:
   - job: terraform_init_plan
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformInstaller@1
       inputs:
         terraformVersion: '1.4.2'
 

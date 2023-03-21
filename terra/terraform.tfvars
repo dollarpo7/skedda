@@ -1,5 +1,5 @@
 resource_group_name     = "ado"
-resource_group_location = "eastus2"
+resource_group_location = ["East US 2", "East US", "Central US"]
 app_service_plan_name   = "skedda-web-plan1"
 app_service_name        = "skedda-web-0231"
 sql_server_name         = "skedda-sqlserver-0231"

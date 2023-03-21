@@ -1,63 +1,64 @@
 trigger:
-- main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-variables:
-  #subscription: Visual Studio Enterprise(b526a136-5b78-4fa3-9bd9-00c7bdadc807)
-  #resourceGroup: resourcegroup-tfstate
-  #storageAccount: tfstate1085
-  #container: tfstate
-  #tfstateFile: terraform.tfstate
-  anyTfChanges: false
-  tf_version: 1.4.2
-
+  - main
   
+pool:
+    vmImage: 'ubuntu-latest'
+  
+variables:
+    #subscription: Visual Studio Enterprise(b526a136-5b78-4fa3-9bd9-00c7bdadc807)
+    #resourceGroup: resourcegroup-tfstate
+    #storageAccount: tfstate1085
+    #container: tfstate
+    #tfstateFile: terraform.tfstate
+    anyTfChanges: false
+    tf_version: 1.4.2
+  
+    
 stages:
-- stage: Terraform_init_plan
-  pool:
-    vmImage: ubuntu-latest
-  jobs:
-  - job: terraform_init_plan
-    steps:
-    - task: TerraformInstaller@0
-      displayName: Terraform INSTALL
-      inputs:
-        terraformVersion: '$(tf_version)'
-
-    - task: TerraformCLI@0
-      displayName: Terraform INIT
-      inputs:
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        backendType: 'azurerm'
-        backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
-        backendAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
-        backendAzureRmResourceGroupName: 'skedda'
-        backendAzureRmStorageAccountName: 'skedda101'
-        backendAzureRmContainerName: 'skedda'
-        backendAzureRmKey: 'skedda.terraform.tfstate'
-        allowTelemetryCollection: true
-    
-    - task: TerraformCLI@0
-      displayName: Terraform PLAN
-      inputs:
-        command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
-        providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
-        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terra/tfplan -detailed-exitcode'
-        allowTelemetryCollection: true
-
-    
-    - task: TerraformCLI@0
-      displayName: Terraform APPLY
-      condition: and(succeeded(), eq(variables['TERRAFORM_PLAN_HAS_CHANGES'], 'true'))
-      inputs:
-        command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
-        environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
-        providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
-        commandOptions: 'tfplan'
-        allowTelemetryCollection: true
+  - stage: Terraform_init_plan
+    pool:
+      vmImage: ubuntu-latest
+    jobs:
+    - job: terraform_init_plan
+      steps:
+      - task: TerraformInstaller@0
+        displayName: Terraform INSTALL
+        inputs:
+          terraformVersion: '$(tf_version)'
+  
+      - task: TerraformCLI@0
+        displayName: Terraform INIT
+        inputs:
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+          backendType: 'azurerm'
+          backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+          backendAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
+          backendAzureRmResourceGroupName: 'skedda'
+          backendAzureRmStorageAccountName: 'skedda101'
+          backendAzureRmContainerName: 'skedda'
+          backendAzureRmKey: 'skedda.terraform.tfstate'
+          allowTelemetryCollection: true
+      
+      - task: TerraformCLI@0
+        displayName: Terraform PLAN
+        inputs:
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+          environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+          providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
+          commandOptions: '-out=$(System.DefaultWorkingDirectory)/terra/tfplan -detailed-exitcode'
+          allowTelemetryCollection: true
+  
+      
+      - task: TerraformCLI@0
+        displayName: Terraform APPLY
+        condition: and(succeeded(), eq(variables['TERRAFORM_PLAN_HAS_CHANGES'], 'true'))
+        inputs:
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
+          environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
+          providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
+          commandOptions: 'tfplan'
+          allowTelemetryCollection: true
+  

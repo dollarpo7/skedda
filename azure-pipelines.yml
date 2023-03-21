@@ -15,7 +15,7 @@ variables:
   
     
 stages:
-  - stage: Terraform Task !
+  - stage: Terraform_Task
     pool:
       vmImage: ubuntu-latest
     jobs:

@@ -15,11 +15,11 @@ variables:
   
     
 stages:
-  - stage: Terraform_init_plan
+  - stage: Terraform_Task
     pool:
       vmImage: ubuntu-latest
     jobs:
-    - job: terraform_init_plan
+    - job: Terraform
       steps:
       - task: TerraformInstaller@0
         displayName: Terraform INSTALL
@@ -34,10 +34,10 @@ stages:
           backendType: 'azurerm'
           backendServiceArm: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
           backendAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
-          backendAzureRmResourceGroupName: 'skedda'
-          backendAzureRmStorageAccountName: 'skedda101'
-          backendAzureRmContainerName: 'skedda'
-          backendAzureRmKey: 'skedda.terraform.tfstate'
+          backendAzureRmResourceGroupName: 'platform'
+          backendAzureRmStorageAccountName: 'platform010'
+          backendAzureRmContainerName: 'platform'
+          backendAzureRmKey: 'platform.tfstate'
           allowTelemetryCollection: true
       
       - task: TerraformCLI@0

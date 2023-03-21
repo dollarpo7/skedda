@@ -47,6 +47,7 @@ stages:
           workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
           environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
           providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
+          commandOptions: '-out=$(System.DefaultWorkingDirectory)/terra/tfplan -detailed-exitcode'
           allowTelemetryCollection: true
   
       

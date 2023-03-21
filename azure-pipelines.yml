@@ -46,7 +46,6 @@ stages:
         providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
         commandOptions: '-out=$(System.DefaultWorkingDirectory)/terra/tfplan -detailed-exitcode'
         allowTelemetryCollection: true
-        publishPlanResults: 'tfplan'
 
     
     - task: TerraformCLI@0

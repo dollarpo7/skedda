@@ -28,7 +28,7 @@ resource "azurerm_linux_web_app" "app" {
   }
 
   connection_string {
-    name  = "Database"
+    name  = "DbConnectionString"
     type  = "SQLAzure"
     #value = "Server=tcp:azurerm_mssql_server.sql.fully_qualified_domain_name Database=azurerm_mssql_database.db.name;User ID=azurerm_mssql_server.sql.administrator_login;Password=azurerm_mssql_server.sql.administrator_login_password;Trusted_Connection=False;Encrypt=True;"
     value = "Server=tcp:azurerm_mssql_server.sql.fully_qualified_domain_name ,1433;Initial Catalog=azurerm_mssql_database.db.name;Persist Security Info=False;User ID=azurerm_mssql_server.sql.administrator_login;Password=azurerm_mssql_server.sql.administrator_login_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
@@ -37,7 +37,7 @@ resource "azurerm_linux_web_app" "app" {
 
 
 
-value = "Server=tcp:azurerm_mssql_server.sql.fully_qualified_domain_name ,1433;Initial Catalog=azurerm_mssql_database.db.name;Persist Security Info=False;User ID=azurerm_mssql_server.sql.administrator_login;Password=azurerm_mssql_server.sql.administrator_login_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+#value = "Server=tcp:azurerm_mssql_server.sql.fully_qualified_domain_name ,1433;Initial Catalog=azurerm_mssql_database.db.name;Persist Security Info=False;User ID=azurerm_mssql_server.sql.administrator_login;Password=azurerm_mssql_server.sql.administrator_login_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
 
 

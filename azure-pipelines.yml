@@ -44,8 +44,8 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
         environmentServiceName: 'Visual Studio Enterprise Subscription(b526a136-5b78-4fa3-9bd9-00c7bdadc807)'
         providerAzureRmSubscriptionId: '$(subscription)'
-        commandOptions: '-out=tfplan'
         allowTelemetryCollection: true
+        publishPlanResults: 'tfplan'
 
     - task: PowerShell@2
       displayName: detect any terraform change

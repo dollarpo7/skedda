@@ -9,7 +9,6 @@ variable "resource_group_location" {
   description = "RG location in Azure"
 }
 
-
 variable "app_service_plan_name" {
   type        = string
   description = "App Service Plan name in Azure"

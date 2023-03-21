@@ -1,3 +1,2 @@
 # skedda
 
-# My ProjectS

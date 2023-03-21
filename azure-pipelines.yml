@@ -19,7 +19,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
     jobs:
-    - job: Terraform_BEGIN
+    - job: Terraform
       steps:
       - task: TerraformInstaller@0
         displayName: Terraform INSTALL

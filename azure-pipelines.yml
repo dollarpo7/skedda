@@ -19,11 +19,11 @@ variables:
   
     
 stages:
-  - stage: Terraform_Task
+  - stage: Provision_Infrastruture
     pool:
       vmImage: ubuntu-latest
     jobs:
-    - job: Proviision_Infrastruture
+    - job: Terraform_Tasks
       steps:
       - task: TerraformInstaller@0
         displayName: Terraform INSTALL
@@ -66,11 +66,11 @@ stages:
           commandOptions: 'tfplan'
           allowTelemetryCollection: true
 
-  - stage:
+  - stage: Build_Application
     pool:
       vmImage: ubuntu-latest
     jobs:
-      - job: Build_Deploy_App
+      - job: Build_DotnetApp
         steps:
           # Build and publish the application library
           - task: DotNetCoreCLI@2

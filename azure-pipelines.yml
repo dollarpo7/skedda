@@ -10,6 +10,10 @@ variables:
     #storageAccount: tfstate1085
     #container: tfstate
     #tfstateFile: terraform.tfstate
+    buildConfiguration: 'Release'
+    azureSubscription: 'Azure Pass - Sponsorship(44c254f7-5162-4fcc-8105-3660b0b461ba)'
+    WebAppName: 'teliosPortal'
+    ResourceGroupName: 'Telios'
     anyTfChanges: false
     tf_version: 1.4.2
   
@@ -19,7 +23,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
     jobs:
-    - job: Terraform
+    - job: Proviision_Infrastruture
       steps:
       - task: TerraformInstaller@0
         displayName: Terraform INSTALL
@@ -61,4 +65,37 @@ stages:
           providerAzureRmSubscriptionId: 'b526a136-5b78-4fa3-9bd9-00c7bdadc807'
           commandOptions: 'tfplan'
           allowTelemetryCollection: true
-  
+
+  - stage:
+    pool:
+      vmImage: ubuntu-latest
+    jobs:
+      - job: Build_Deploy_App
+        steps:
+          # Build and publish the application library
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet restore'
+            inputs:
+              command: restore
+              projects: '**/*.csproj'
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet build'
+            inputs:
+              command: build
+              projects: '**/*.csproj'
+              arguments: '--configuration $(buildConfiguration)'
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet publish'
+            inputs:
+              command: publish
+              publishWebProjects: True
+              arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+              zipAfterPublish: True
+    
+          # Publish the app as an artifact
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: teliosapp
+          
+          - script: |
+             cd $(Build.ArtifactStagingDirectory)
+             tree -a

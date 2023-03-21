@@ -22,10 +22,12 @@ stages:
   - job: terraform_init_plan
     steps:
     - task: TerraformInstaller@0
+      displayName: Terraform INSTALL
       inputs:
         terraformVersion: '$(tf_version)'
 
     - task: TerraformCLI@0
+      displayName: Terraform INIT
       inputs:
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
@@ -39,6 +41,7 @@ stages:
         allowTelemetryCollection: true
     
     - task: TerraformCLI@0
+      displayName: Terraform PLAN
       inputs:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terra'
@@ -49,6 +52,7 @@ stages:
 
     
     - task: TerraformCLI@0
+      displayName: Terraform APPLY
       condition: and(succeeded(), eq(variables['TERRAFORM_PLAN_HAS_CHANGES'], 'true'))
       inputs:
         command: 'apply'

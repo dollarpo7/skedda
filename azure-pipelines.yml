@@ -91,10 +91,9 @@ stages:
               publishWebProjects: True
               arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
               zipAfterPublish: True
-    
           # Publish the app as an artifact
           - publish: $(Build.ArtifactStagingDirectory)
-            artifact: teliosapp
+            artifact: skedda_app
           
           - script: |
              cd $(Build.ArtifactStagingDirectory)

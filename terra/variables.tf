@@ -4,10 +4,11 @@ variable "resource_group_name" {
 }
 
 variable "resource_group_location" {
-  type        = list
-  default     = "East US 2"
+  type        = list(string)
+  default     = ["East US 2"]
   description = "RG location in Azure"
 }
+
 
 variable "app_service_plan_name" {
   type        = string

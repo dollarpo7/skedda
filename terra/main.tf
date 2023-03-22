@@ -45,6 +45,8 @@ resource "azurerm_mssql_database" "db" {
   license_type   = "LicenseIncluded"
   sku_name       = "S0"
   zone_redundant = false
+  storage_account_type = "Geo"
+
 }
 
 resource "azurerm_storage_account" "storage" {

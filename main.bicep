@@ -32,13 +32,13 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       linuxFxVersion:linuxFxVersion
-      connectionStrings: [
-        {
-          name: 'DbConnectionString'
-          connectionString: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
-          type: 'SQLAzure'
-        }
-      ]
+      // connectionStrings: [
+      //   {
+      //     name: 'DbConnectionString'
+      //     connectionString: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      //     type: 'SQLAzure'
+      //   }
+      // ]
       appSettings: [
         {
           name: 'DbConnectionString'

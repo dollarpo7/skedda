@@ -58,7 +58,6 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           az --version
-          az group create --name $(resourceGroupName) --location $(location)
           az deployment group what-if --resource-group $(resourceGroupName) \
             --template-file $(templateFile) \
             --parameters $(parameterFile)

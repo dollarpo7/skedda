@@ -39,12 +39,24 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
       //     type: 'SQLAzure'
       //   }
       // ]
-      appSettings: [
-        {
-          name: 'DbConnectionString'
-          value: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
-        }
-      ]
+      // appSettings: [
+      //   {
+      //     name: 'DbConnectionString'
+      //     value: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      //   }
+      // ]
+    }
+  }
+}
+
+resource connectionString 'Microsoft.Web/sites/config@2022-09-01' = {
+  parent: webApp
+  name: 'connectionstrings'
+  kind: 'string'
+  properties: {
+    DbConnectionString: {
+      type: 'SQLAzure'
+      value: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
     }
   }
 }

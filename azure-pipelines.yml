@@ -97,6 +97,7 @@ stages:
 
 
   - job: Build_DotnetApp
+    dependsOn: deployAzure
     steps:
       # Build and publish the application library
       - task: DotNetCoreCLI@2

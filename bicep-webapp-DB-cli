@@ -12,4 +12,4 @@ az deployment group create \
 
 
 #Delete all resources deployed in the Resource Group
-az group delete --resource-group lazar --yes --no-wait
+#az group delete --resource-group lazar --yes --no-wait

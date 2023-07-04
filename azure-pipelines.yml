@@ -97,6 +97,8 @@ stages:
             --parameters $(parameterFile)
 
 - stage: Build_Application
+  dependsOn: deployBicep
+  condition: suceeded()
   pool:
     vmImage: ubuntu-latest
     jobs:

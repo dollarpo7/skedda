@@ -16,7 +16,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: '${webAppName}-plan'
   location: rgLocation
   sku: {
-    name: 'S2'
+    name: 'S1'
     tier: 'Standard'
   }
   kind: WebAppKind
@@ -66,7 +66,8 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2022-11-01-preview' = {
   name: '${sqlServerName}-${webAppName}-db'
   location: rgLocation
   sku: {
-    name: 'S0'
+    name: 'Standard'
+    tier: 'Standard'
   }
   properties: {
     collation: 'SQL_Latin1_General_CP1_CI_AS'

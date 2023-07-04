@@ -37,8 +37,8 @@ stages:
     - task: RunARMTTKTests@1
       displayName: Scan Bicep files
       inputs:
-        templatelocation: '$(System.DefaultWorkingDirectory)/skedda/$(templateFile)'
-        resultLocation: '$(System.DefaultWorkingDirectory)/results'
+        templatelocation: '$(System.DefaultWorkingDirectory)\skedda'
+        resultLocation: '$(System.DefaultWorkingDirectory)\results'
         allTemplatesMain: false
         cliOutputResults: true
         ignoreExitCode: true

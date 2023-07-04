@@ -16,7 +16,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: '${webAppName}-plan'
   location: rgLocation
   sku: {
-    name: 'S1'
+    name: 'S2'
     tier: 'Standard'
   }
   kind: WebAppKind
@@ -39,12 +39,12 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
           type: 'SQLAzure'
         }
       ]
-      // appSettings: [
-      //   {
-      //     //name: 'WEBSITE_NODE_DEFAULT_VERSION'
-      //     //value: '14.17.0'
-      //   }
-      // ]
+      appSettings: [
+        {
+          name: 'DbConnectionString'
+          value: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+        }
+      ]
     }
   }
 }

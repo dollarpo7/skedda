@@ -1,7 +1,7 @@
 using './main.bicep'
 
-param webAppName = 'dolaz1webapp'
-param sqlServerName = 'dolaz2database'
+param webAppName = 'dolaz3webapp'
+param sqlServerName = 'dolaz3database'
 param sqlAdminLogin = 'adminlogin'
 param sqlAdminPwd = 'Folarin812345@%'
 param rgLocation = 'EastUS'

@@ -98,7 +98,7 @@ stages:
 
 - stage: Build_Application
   dependsOn: deployBicep
-  condition: suceeded()
+  condition: succeeded()
   pool:
     vmImage: ubuntu-latest
     jobs:

@@ -37,7 +37,7 @@ stages:
     - task: RunARMTTKTests@1
       displayName: Scan Bicep files
       inputs:
-        templatelocation: '$(System.DefaultWorkingDirectory)\skedda'
+        templatelocation: '$(System.DefaultWorkingDirectory)\skedda\bicep-webapp-DB-cli'
         resultLocation: '$(System.DefaultWorkingDirectory)\results'
         allTemplatesMain: false
         cliOutputResults: true

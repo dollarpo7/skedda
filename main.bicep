@@ -32,6 +32,7 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       linuxFxVersion:linuxFxVersion
+      alwaysOn: true
       // connectionStrings: [
       //   {
       //     name: 'DbConnectionString'
@@ -56,7 +57,7 @@ resource connectionString 'Microsoft.Web/sites/config@2022-09-01' = {
   properties: {
     DbConnectionString: {
       type: 'SQLAzure'
-      value: 'Server=tcp:${sqlServer.name}.${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      value: 'Server=tcp:${sqlServer.name}${url},1433;Initial Catalog=${sqlDatabase.name};Persist Security Info=False;User ID=${sqlServer.properties.administratorLogin};Password=${sqlAdminPwd};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
     }
   }
 }

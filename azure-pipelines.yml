@@ -5,8 +5,8 @@ trigger: none
 
 variables:
   resourceGroupName: 'lazar'
-  location: 'westeurope'
-  webAppName: 'bicep0023'
+  #location: 'westeurope'
+  #webAppName: 'bicep0023'
   templateFile: 'main.bicep'
   parameterFile: 'main.bicepparam'
   #subscription: Visual Studio Enterprise(b526a136-5b78-4fa3-9bd9-00c7bdadc807)

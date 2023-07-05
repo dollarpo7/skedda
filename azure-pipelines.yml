@@ -96,33 +96,36 @@ stages:
             --parameters $(parameterFile)
 
 
-  - job: Build_DotnetApp
-    dependsOn: deployAzure
-    steps:
-      # Build and publish the application library
-      - task: DotNetCoreCLI@2
-        displayName: 'dotnet restore'
-        inputs:
-          command: restore
-          projects: '**/*.csproj'
-      - task: DotNetCoreCLI@2
-        displayName: 'dotnet build'
-        inputs:
-          command: build
-          projects: '**/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
-      - task: DotNetCoreCLI@2
-        displayName: 'dotnet publish'
-        inputs:
-          command: publish
-          publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-          zipAfterPublish: True
-
-      # Publish the app as an artifact
-      - publish: $(Build.ArtifactStagingDirectory)
-        artifact: skedda_app
-      
-      - script: |
-          cd $(Build.ArtifactStagingDirectory)
-          tree -a
+- stage: Build_Application
+  dependsOn: deployBicep
+  pool:
+    vmImage: ubuntu-latest
+  jobs:
+    - job: Build_DotnetApp
+      steps:
+        # Build and publish the application library
+        - task: DotNetCoreCLI@2
+          displayName: 'dotnet restore'
+          inputs:
+            command: restore
+            projects: '**/*.csproj'
+        - task: DotNetCoreCLI@2
+          displayName: 'dotnet build'
+          inputs:
+            command: build
+            projects: '**/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
+        - task: DotNetCoreCLI@2
+          displayName: 'dotnet publish'
+          inputs:
+            command: publish
+            publishWebProjects: True
+            arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+            zipAfterPublish: True
+        # Publish the app as an artifact
+        - publish: $(Build.ArtifactStagingDirectory)
+          artifact: skedda_app
+        
+        - script: |
+            cd $(Build.ArtifactStagingDirectory)
+            tree -a

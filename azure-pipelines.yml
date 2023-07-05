@@ -1,4 +1,4 @@
-name: Deploy Bicep Infrastructure files $(Build.BuildId)
+name: Deploy Bicep files $(Build.BuildId)
 
 trigger: 
   - main

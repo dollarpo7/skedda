@@ -1,25 +1,15 @@
 name: Deploy Bicep files $(Build.BuildId)
 
-trigger: none
-# - main
+trigger: 
+  - main
 
 variables:
   resourceGroupName: 'lazar'
-  #location: 'westeurope'
-  #webAppName: 'bicep0023'
   templateFile: 'main.bicep'
   parameterFile: 'main.bicepparam'
-  #subscription: Visual Studio Enterprise(b526a136-5b78-4fa3-9bd9-00c7bdadc807)
-  #resourceGroup: resourcegroup-tfstate
-  #storageAccount: tfstate1085
-  #container: tfstate
-  #tfstateFile: terraform.tfstate
   buildConfiguration: 'Release'
   azureSubscription: 'Azure Sub'
-  #WebAppName: 'teliosPortal'
-  #ResourceGroupName: 'Telios'
-  #anyTfChanges: false
-  #tf_version: 1.4.2
+  
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -96,7 +86,7 @@ stages:
             --parameters $(parameterFile)
 
 
-- stage: Build_Application
+- stage: buildApplication
   dependsOn: deployBicep
   pool:
     vmImage: ubuntu-latest
